@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Icon from "@mui/material/Icon";
 import { LinkToJoinOrLogin } from "./common/UserSignUpOrLoginLink";
 import { Text } from "./common/Text";
+import { Link } from "react-router-dom";
 
 const featureArray = [
   {
@@ -44,18 +45,24 @@ export const GetStarted = () => {
 
   return (
     <>
-      <LinkToJoinOrLogin />
+      <LinkToJoinOrLogin
+        path="login"
+        text1="Already a member"
+        text2="Sign in"
+      />
       <div className="flex justify-center flex-col items-center h-screen mt-8">
         <Text className="text-lg font-bold text-gray-900">
           Open a new business account
         </Text>
-        <Text className="self-start text-xs mb-4 ml-80 my-2">
+        <Text className="lg:self-start text-xs mb-4 ml-0 lg:ml-80 my-2">
           Types of Accounts and the benefits to each
         </Text>
         {featureIndexClickStatus.map((item, index) => (
           <div
             onClick={handleClick(index)}
-            className={`border-2 ${index === 1 ? "my-3" : ""} w-5/12 ${
+            className={`border-2 ${
+              index === 1 ? "my-3" : ""
+            } w-10/12 lg:mx-0 lg:w-5/12 ${
               item.focus ? "border-red-400" : "border-gray-400 shadow-md"
             } rounded-md p-4 cursor-pointer`}
           >
@@ -80,11 +87,14 @@ export const GetStarted = () => {
             </div>
           </div>
         ))}
-        <button className="w-5/12 mt-8 bg-red-400 p-3 rounded-md flex justify-center">
+        <Link
+          to="/register"
+          className="w-10/12 mb-8 lg:mb-0 lg:w-5/12 mt-8 bg-red-400 p-3 rounded-md flex justify-center"
+        >
           <Text color="text-white" className="font-bold">
             Next
           </Text>
-        </button>
+        </Link>
       </div>
     </>
   );
