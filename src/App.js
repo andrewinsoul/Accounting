@@ -1,10 +1,22 @@
 import React from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Paths as Routes } from "./components/routes";
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#c14793",
+    },
+  },
+  typography: {
+    fontSize: 12,
+  },
+});
+
 const App = () => (
-  <div>
+  <ThemeProvider theme={theme}>
     <Routes />
-  </div>
+  </ThemeProvider>
 );
 
 export default App;

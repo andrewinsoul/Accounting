@@ -3,7 +3,7 @@ const saveImg = require("../../images/save.png");
 const coinImg = require("../../images/coin.png");
 export const Sidebar = (props) => (
   <div
-    className={`bg-blue-800 fixed top-0 bottom-0 left-0 w-3/12 ${props.classStyles}`}
+    className={`bg-blue-800 hidden lg:block fixed top-0 bottom-0 left-0 w-3/12 ${props.classStyles}`}
   >
     <div className="mx-3 text-white flex flex-col">
       <h3 className="text-lg py-4 tracking-wide font-bold">
