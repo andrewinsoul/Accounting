@@ -1,5 +1,11 @@
 import React, { useCallback, useState } from "react";
 import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import FilledInput from "@mui/material/FilledInput";
+import { FormControl, InputLabel } from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import MenuItem from "@mui/material/MenuItem";
 import { Text } from "./common/Text";
 import { countryCodes } from "../utils/countryCode";
@@ -11,9 +17,10 @@ export const Signup = () => {
   const [formField, setFormField] = useState({
     firstName: "",
     lastName: "",
-    countryCode: "",
+    countryCode: "+234",
     phoneNumber: "",
     email: "",
+    password: "",
   });
   const [formFieldError, setFormFieldError] = useState({
     firstName: "",
@@ -21,6 +28,7 @@ export const Signup = () => {
     countryCode: "",
     phoneNumber: "",
     email: "",
+    password: "",
   });
   const [formFieldTouched, setFormFieldTouched] = useState({
     firstName: "",
@@ -28,10 +36,15 @@ export const Signup = () => {
     countryCode: "",
     phoneNumber: "",
     email: "",
+    password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleVisibility = useCallback(() => {
+    setShowPassword(!showPassword);
+  }, [showPassword]);
   const validate = useCallback(
     (fields, submitted) => {
-      const { firstName, lastName, phoneNumber, email } = fields;
+      const { firstName, lastName, phoneNumber, email, password } = fields;
       if (submitted) {
         if (!firstName) {
           setFormFieldError((prev) => ({
@@ -75,6 +88,17 @@ export const Signup = () => {
           setFormFieldError((prev) => ({
             ...prev,
             email: "",
+          }));
+        }
+        if (password.length < 8) {
+          setFormFieldError((prev) => ({
+            ...prev,
+            password: "please a password that is at least 8 characters long",
+          }));
+        } else {
+          setFormFieldError((prev) => ({
+            ...prev,
+            password: "",
           }));
         }
       } else {
@@ -129,6 +153,17 @@ export const Signup = () => {
               email: "",
             }));
           }
+        }
+        if (password.length < 8) {
+          setFormFieldError((prev) => ({
+            ...prev,
+            password: "please a password that is at least 8 characters long",
+          }));
+        } else {
+          setFormFieldError((prev) => ({
+            ...prev,
+            password: "",
+          }));
         }
       }
       if (
@@ -235,7 +270,7 @@ export const Signup = () => {
                 onChange={handleChange}
                 name="countryCode"
                 label="Country"
-                value={formField.countryCode || "+234"}
+                value={formField.countryCode}
                 className="text-xs"
                 variant="filled"
               >
@@ -278,6 +313,41 @@ export const Signup = () => {
               type="email"
               variant="filled"
             />
+          </div>
+          <div className="mb-8">
+            <FormControl className="w-full" variant="filled">
+              <InputLabel htmlFor="password">Password *</InputLabel>
+              <FilledInput
+                id="password"
+                onFocus={handleFocus}
+                required
+                onChange={handleChange}
+                name="password"
+                value={formField.password}
+                placeholder="Enter Password"
+                label="Enter Password"
+                error={formFieldError.password ? true : false}
+                className="w-full"
+                type={showPassword ? "text" : "password"}
+                variant="filled"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={toggleVisibility}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              {formFieldError.password ? (
+                <small className="text-red-600 text-xxsm">
+                  {formFieldError.password}
+                </small>
+              ) : null}
+            </FormControl>
           </div>
           <button
             onClick={handleSubmit(formField)}
