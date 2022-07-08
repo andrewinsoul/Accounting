@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
+import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import FilledInput from "@mui/material/FilledInput";
 import Visibility from "@mui/icons-material/Visibility";
@@ -8,6 +9,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Text } from "./common/Text";
 import { LinkToJoinOrLogin } from "./common/UserSignUpOrLoginLink";
 import { FormControl, InputLabel } from "@mui/material";
+import { database } from "../database";
 
 const emailRe = /^([a-z0-9_\-.]+)@([a-z]+)\.([a-z]{2,3})$/;
 
@@ -17,6 +19,7 @@ export const Signin = () => {
     email: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formFieldError, setFormFieldError] = useState({
     password: "",
     email: "",
@@ -116,13 +119,30 @@ export const Signin = () => {
   );
 
   const handleSubmit = (values) => () => {
-    const isFormValid = validate(values, true);
-    if (isFormValid) {
-      values = {
-        ...values,
-        phoneNumber: `${values.countryCode}${values.phoneNumber}`,
-      };
-      alert("save user info");
+    try {
+      const { email, password } = values;
+      setLoading(true);
+      let found;
+      const isFormValid = validate(values, true);
+      if (isFormValid) {
+        found = database.find(
+          (item) => item.email === email && item.password === password
+        );
+
+        if (found) {
+          localStorage.setItem(
+            "token",
+            "some-complex-string-that-identifies-user"
+          );
+          alert("View Dashboard");
+        } else {
+          alert("Invalid Credentials supplied");
+        }
+      }
+    } catch (error) {
+      alert("An error occured");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -170,7 +190,6 @@ export const Signin = () => {
                 placeholder="Enter Password"
                 label="Enter Password"
                 error={formFieldError.password ? true : false}
-                helperText={formFieldError.password}
                 className="w-full"
                 type={showPassword ? "text" : "password"}
                 variant="filled"
@@ -198,9 +217,13 @@ export const Signin = () => {
             onClick={handleSubmit(formField)}
             className="w-full bg-red-400 p-3 rounded-md flex justify-center"
           >
-            <Text color="text-white" className="font-bold">
-              Next
-            </Text>
+            {loading ? (
+              <CircularProgress color="loader" size={20} />
+            ) : (
+              <Text color="text-white" className="font-bold">
+                Next
+              </Text>
+            )}
           </button>
         </div>
       </div>

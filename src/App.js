@@ -7,6 +7,9 @@ const theme = createTheme({
     primary: {
       main: "#c14793",
     },
+    loader: {
+      main: "#fff",
+    },
   },
   typography: {
     fontSize: 12,

@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from "react";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
+import { database } from "../database";
+import CircularProgress from "@mui/material/CircularProgress";
 import InputAdornment from "@mui/material/InputAdornment";
 import FilledInput from "@mui/material/FilledInput";
 import { FormControl, InputLabel } from "@mui/material";
@@ -30,6 +32,7 @@ export const Signup = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const [formFieldTouched, setFormFieldTouched] = useState({
     firstName: "",
     lastName: "",
@@ -204,13 +207,20 @@ export const Signup = () => {
   );
 
   const handleSubmit = (values) => () => {
-    const isFormValid = validate(values, true);
-    if (isFormValid) {
-      values = {
-        ...values,
-        phoneNumber: `${values.countryCode}${values.phoneNumber}`,
-      };
-      alert("save user info");
+    try {
+      setLoading(true);
+      const isFormValid = validate(values, true);
+      if (isFormValid) {
+        values = {
+          ...values,
+          phoneNumber: `${values.countryCode}${values.phoneNumber}`,
+        };
+        database.push(values);
+      }
+    } catch (error) {
+      alert("An error occured");
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -351,11 +361,16 @@ export const Signup = () => {
           </div>
           <button
             onClick={handleSubmit(formField)}
-            className="w-full bg-red-400 p-3 rounded-md flex justify-center"
+            disabled={loading}
+            className="w-full bg-red-400 p-3 rounded-md mb-5 flex justify-center"
           >
-            <Text color="text-white" className="font-bold">
-              Next
-            </Text>
+            {loading ? (
+              <CircularProgress color="loader" size={20} />
+            ) : (
+              <Text color="text-white" className="font-bold">
+                Next
+              </Text>
+            )}
           </button>
         </div>
       </div>
