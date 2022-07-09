@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import FilledInput from "@mui/material/FilledInput";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import FormHelperText from "@mui/material/FormHelperText";
 import { Text } from "./common/Text";
 import { LinkToJoinOrLogin } from "./common/UserSignUpOrLoginLink";
 import { Alert, FormControl, InputLabel, Snackbar } from "@mui/material";
@@ -182,7 +183,12 @@ export const Signin = () => {
           </div>
           <div className="mb-8">
             <FormControl className="w-full" variant="filled">
-              <InputLabel htmlFor="password">Enter Password *</InputLabel>
+              <InputLabel
+                error={formFieldError.password ? true : false}
+                htmlFor="password"
+              >
+                Enter Password *
+              </InputLabel>
               <FilledInput
                 id="password"
                 onFocus={handleFocus}
@@ -209,9 +215,9 @@ export const Signin = () => {
                 }
               />
               {formFieldError.password ? (
-                <small className="text-red-600 text-xxsm">
-                  {formFieldError.password}
-                </small>
+                <FormHelperText>
+                  <p className="text-red-600">{formFieldError.password}</p>
+                </FormHelperText>
               ) : null}
             </FormControl>
           </div>

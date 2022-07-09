@@ -22,7 +22,7 @@ export const Paths = () => {
     } else {
       authenticated = false;
     }
-  }, []);
+  }, [navigate]);
   const location = useLocation();
   const { pathname } = location;
   return (

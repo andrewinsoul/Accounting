@@ -7,6 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import InputAdornment from "@mui/material/InputAdornment";
 import FilledInput from "@mui/material/FilledInput";
 import { FormControl, InputLabel } from "@mui/material";
+import FormHelperText from "@mui/material/FormHelperText";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import MenuItem from "@mui/material/MenuItem";
@@ -335,7 +336,12 @@ export const Signup = () => {
           </div>
           <div className="mb-8">
             <FormControl className="w-full" variant="filled">
-              <InputLabel htmlFor="password">Password *</InputLabel>
+              <InputLabel
+                error={formFieldError.password ? true : false}
+                htmlFor="password"
+              >
+                Password *
+              </InputLabel>
               <FilledInput
                 id="password"
                 onFocus={handleFocus}
@@ -362,9 +368,9 @@ export const Signup = () => {
                 }
               />
               {formFieldError.password ? (
-                <small className="text-red-600 text-xxsm">
-                  {formFieldError.password}
-                </small>
+                <FormHelperText>
+                  <p className="text-red-600">{formFieldError.password}</p>
+                </FormHelperText>
               ) : null}
             </FormControl>
           </div>
