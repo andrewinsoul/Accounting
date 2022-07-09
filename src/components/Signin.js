@@ -9,7 +9,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Text } from "./common/Text";
 import { LinkToJoinOrLogin } from "./common/UserSignUpOrLoginLink";
-import { FormControl, InputLabel } from "@mui/material";
+import { Alert, FormControl, InputLabel, Snackbar } from "@mui/material";
 import { database } from "../database";
 
 const emailRe = /^([a-z0-9_\-.]+)@([a-z]+)\.([a-z]{2,3})$/;
@@ -26,6 +26,7 @@ export const Signin = () => {
     password: "",
     email: "",
   });
+  const [authError, setAuthError] = useState(false);
   const toggleVisibility = useCallback(() => {
     setShowPassword(!showPassword);
   }, [showPassword]);
@@ -138,11 +139,11 @@ export const Signin = () => {
           );
           navigate("/dashboard");
         } else {
-          alert("Invalid Credentials supplied");
+          setAuthError("wrong credentials entered");
         }
       }
     } catch (error) {
-      alert("An error occured");
+      setAuthError("An error occured");
     } finally {
       setLoading(false);
     }
@@ -227,6 +228,19 @@ export const Signin = () => {
               </Text>
             )}
           </button>
+          <Snackbar
+            onClose={() => setAuthError(null)}
+            open={authError ? true : false}
+            autoHideDuration={6000}
+          >
+            <Alert
+              onClose={() => setAuthError(null)}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              {authError}
+            </Alert>
+          </Snackbar>
         </div>
       </div>
     </>
