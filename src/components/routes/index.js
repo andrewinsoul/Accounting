@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "../common/Sidebar";
 import { AuthenticatedSidebar } from "../common/authenticated/Sidebar";
 import { GetStarted } from "../GetStarted";
@@ -14,11 +14,15 @@ const authenticatedSidebar = ["/dashboard"];
 let authenticated;
 
 export const Paths = () => {
-  if (localStorage.getItem("token")) {
-    authenticated = true;
-  } else {
-    authenticated = false;
-  }
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      authenticated = true;
+      navigate("/dashboard");
+    } else {
+      authenticated = false;
+    }
+  }, []);
   const location = useLocation();
   const { pathname } = location;
   return (
