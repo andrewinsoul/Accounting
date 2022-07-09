@@ -48,13 +48,17 @@ const cashOutFlowData = [
 
 const options = {
   responsive: true,
-  plugins: {
-    legend: {
-      position: "top",
+  scales: {
+    x: {
+      grid: {
+        display: false,
+      },
     },
-    title: {
-      display: false,
-      text: "",
+
+    y: {
+      grid: {
+        color: "rgba(217,43,7,0.1)",
+      },
     },
   },
 };
@@ -132,7 +136,7 @@ export const Dashboard = () => (
           <Text className="font-bold text-gray-600 mt-6 mx-2">
             June Summary
           </Text>
-          <div className="flex flex-row mx-2 mt-4">
+          <div className="flex flex-row justify-evenly mx-2 mt-4">
             <div>
               <Text color="text-gray-400">Money in:</Text>
               <Text className="text-lg font-bold">N2,000,000</Text>
