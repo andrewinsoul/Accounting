@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import TextField from "@mui/material/TextField";
+import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import { database } from "../database";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -16,6 +17,7 @@ import { LinkToJoinOrLogin } from "./common/UserSignUpOrLoginLink";
 const emailRe = /^([a-z0-9_\-.]+)@([a-z]+)\.([a-z]{2,3})$/;
 const phoneRe = /^[0-9]+$/;
 export const Signup = () => {
+  const navigate = useNavigate();
   const [formField, setFormField] = useState({
     firstName: "",
     lastName: "",
@@ -157,16 +159,18 @@ export const Signup = () => {
             }));
           }
         }
-        if (password.length < 8) {
-          setFormFieldError((prev) => ({
-            ...prev,
-            password: "please a password that is at least 8 characters long",
-          }));
-        } else {
-          setFormFieldError((prev) => ({
-            ...prev,
-            password: "",
-          }));
+        if (formFieldTouched.password) {
+          if (password.length < 8) {
+            setFormFieldError((prev) => ({
+              ...prev,
+              password: "please a password that is at least 8 characters long",
+            }));
+          } else {
+            setFormFieldError((prev) => ({
+              ...prev,
+              password: "",
+            }));
+          }
         }
       }
       if (
@@ -216,6 +220,11 @@ export const Signup = () => {
           phoneNumber: `${values.countryCode}${values.phoneNumber}`,
         };
         database.push(values);
+        localStorage.setItem(
+          "token",
+          "some-complex-string-that-identifies-user"
+        );
+        navigate("/dashboard");
       }
     } catch (error) {
       alert("An error occured");
