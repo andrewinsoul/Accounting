@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useNavigate } from "react-router-dom";
 import CircularProgress from "@mui/material/CircularProgress";
 import TextField from "@mui/material/TextField";
 import FilledInput from "@mui/material/FilledInput";
@@ -14,6 +15,7 @@ import { database } from "../database";
 const emailRe = /^([a-z0-9_\-.]+)@([a-z]+)\.([a-z]{2,3})$/;
 
 export const Signin = () => {
+  const navigate = useNavigate();
   const [formField, setFormField] = useState({
     password: "",
     email: "",
@@ -134,7 +136,7 @@ export const Signin = () => {
             "token",
             "some-complex-string-that-identifies-user"
           );
-          alert("View Dashboard");
+          navigate("/dashboard");
         } else {
           alert("Invalid Credentials supplied");
         }
