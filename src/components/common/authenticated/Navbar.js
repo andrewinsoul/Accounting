@@ -69,7 +69,7 @@ export const Nav = () => {
                   alt="my avatar"
                 />
                 {showBusinessMobile && isMobile ? (
-                  <div className="absolute rounded-md top-10 left-10 elevation-4 w-vl bg-white">
+                  <div className="absolute rounded-md top-10 left-10 elevation-4 w-vl bg-white z-10">
                     <Text className="text-sm ml-3">Business Name 2</Text>
                     <Text className="my-2 text-sm ml-3">Business Name 1</Text>
                     <Text className="text-sm ml-3">Business Name 3</Text>

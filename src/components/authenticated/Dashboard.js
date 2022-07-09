@@ -11,13 +11,14 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  Filler,
   LineElement,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { Nav } from "../common/authenticated/Navbar";
 import { Text } from "../common/Text";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler);
 const cashOutFlowData = [
   {
     category: "Bank Fees",
@@ -64,9 +65,10 @@ const data = {
   datasets: [
     {
       label: "",
-      data: [233, 4, 55, 66, 78, 889, 97],
+      data: [233, 334, 255, 166, 278, 889, 997],
       borderColor: "rgb(255, 99, 132)",
       backgroundColor: "rgba(255, 99, 132, 0.5)",
+      fill: { above: "rgba(255, 99, 32, 0.5)", target: "origin" },
     },
   ],
 };
@@ -144,11 +146,12 @@ export const Dashboard = () => (
               <Text className="text-lg font-bold">N2,000,000</Text>
             </div>
           </div>
-          <div className="flex flex-row absolute bottom-3 left-3 items-end">
+          <div className="flex flex-row absolute bottom-3 left-3 items-end w-11/12 ">
             <Line
               options={{
                 ...options,
                 responsive: true,
+                tension: 0.3,
                 maintainAspectRatio: false,
               }}
               data={data}
