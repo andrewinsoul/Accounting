@@ -80,7 +80,7 @@ const data = {
 export const Dashboard = () => (
   <>
     <Nav />
-    <div className="bg-gray-100 min-h-screen px-4 md:px-28 pt-6">
+    <div className="bg-gray-100 mt-14 min-h-screen px-4 md:px-28 pt-6">
       <div className="flex flex-col md:flex-row justify-between">
         <div>
           <Text className="font-extrabold text-xl">Welcome back, Nature</Text>

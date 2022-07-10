@@ -60,6 +60,7 @@ export const GetStarted = () => {
         {featureIndexClickStatus.map((item, index) => (
           <div
             onClick={handleClick(index)}
+            key={index}
             className={`border-2 ${
               index === 1 ? "my-3" : ""
             } w-10/12 lg:mx-0 lg:w-5/12 ${
@@ -76,8 +77,8 @@ export const GetStarted = () => {
               <Text className="my-2 text-xs">
                 As a registered business owner, you will get:
               </Text>
-              {item.benefits.map((benefit) => (
-                <div className="flex flex-row pb-4">
+              {item.benefits.map((benefit, index_) => (
+                <div className="flex flex-row pb-4" key={`benefit-${index_}`}>
                   <Icon className="mr-2" color="success">
                     check_circle_outline
                   </Icon>

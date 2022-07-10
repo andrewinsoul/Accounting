@@ -41,7 +41,7 @@ export const Nav = () => {
   };
 
   return (
-    <div className="pl-18">
+    <div className="pl-18 fixed top-0 left-0 right-0 z-10">
       <nav className=" bg-white py-1">
         <div className="mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between md:block">
@@ -49,7 +49,7 @@ export const Nav = () => {
               <div className="hidden md:block pl-16">
                 <div className="flex justify-between w-full flex-row items-center">
                   <Text
-                    className="font-extrabold px-3 py-2 rounded-md text-lg"
+                    className="font-extrabold px-3 ml-64 py-2 rounded-md text-lg"
                     color="text-gray-700"
                   >
                     Dashboard

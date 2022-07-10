@@ -50,7 +50,7 @@ export const AuthenticatedSidebar = (props) => {
   const navigate = useNavigate();
   return (
     <div
-      className={`elevation-6 hidden lg:block bg-white elev fixed top-0 bottom-0 left-0 w-3/12 ${props.className}`}
+      className={`elevation-6 hidden lg:block bg-white elev fixed top-0 bottom-0 left-0 w-3/12 z-20 ${props.className}`}
     >
       <div className="flex flex-row mt-4 ">
         <div className="mx-4 w-8 h-8 rounded-full bg-gray-900">
