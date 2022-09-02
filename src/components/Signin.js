@@ -138,7 +138,7 @@ export const Signin = () => {
             "token",
             "some-complex-string-that-identifies-user"
           );
-          navigate("/dashboard");
+          navigate("/dashboard", { replace: true });
         } else {
           setAuthError("wrong credentials entered");
         }

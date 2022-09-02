@@ -95,10 +95,10 @@ export const AuthenticatedSidebar = (props) => {
             onClick={() => {
               if (item.label === "Log Out") {
                 localStorage.clear();
-                navigate("/login");
+                navigate("/login", { replace: true });
               }
             }}
-            className="my-8 py-1 rounded-md hover:elevation-8 cursor-pointer flex flex-row items-center"
+            className="my-8 py-1 rounded-md hover:elevation-8 hover:py-2 cursor-pointer flex flex-row items-center"
             role="button"
           >
             {item.icon}

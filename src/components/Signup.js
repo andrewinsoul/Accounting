@@ -225,7 +225,7 @@ export const Signup = () => {
           "token",
           "some-complex-string-that-identifies-user"
         );
-        navigate("/dashboard");
+        navigate("/dashboard", { replace: true });
       }
     } catch (error) {
       alert("An error occured");

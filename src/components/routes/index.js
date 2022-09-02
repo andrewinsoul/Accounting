@@ -8,6 +8,7 @@ import { Signin } from "../Signin";
 import { NotFoundPage } from "../NotFound";
 import { AuthenticatedRoute } from "./protectRoute";
 import { Dashboard } from "../authenticated/Dashboard";
+import { Nav } from "../common/authenticated/Navbar";
 
 const unAuthenticatedSidebar = ["/get-started", "/login", "/register"];
 const authenticatedSidebar = ["/dashboard"];
